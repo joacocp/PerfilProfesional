@@ -1,3 +1,4 @@
+from django.shortcuts import render
 
 from django.http import HttpResponse
 
@@ -7,3 +8,4 @@ def saludo_inicial(request):
 
 def saludo_despedida(request):
     return HttpResponse("¡Hasta luego! Este es el mensaje de despedida de mi proyecto Django.")
+
