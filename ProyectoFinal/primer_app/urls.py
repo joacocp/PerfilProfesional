@@ -1,12 +1,15 @@
 
 from django.contrib import admin
 from django.urls import path
-from .views import saludo_inicial, saludo_despedida,saludo_con_template,crear_estudio
+from .views import crear_estudio,inicio,crear_conocimiento,buscar_conocimiento,conocimiento,crear_empleo
 
 
 urlpatterns = [
-    path('saludo-inicial/', saludo_inicial),
-    path('saludo/', saludo_con_template),
-    path('saludo-despedida/',saludo_despedida),
-    path('crear-estudio/<str:name>/',crear_estudio),
+    path('', inicio, name='inicio'),
+    path('conocimiento/buscar', buscar_conocimiento, name='buscar-conocimiento'),
+    path('conocimiento/', conocimiento, name='conocimiento'),
+    path('crear-conocimiento/', crear_conocimiento,name='crear-conocimiento'),
+    path('crear-estudio/',crear_estudio,name = 'crear-estudio'),
+    path('crear-empleo/',crear_empleo,name = 'crear-empleo'),
+
 ]

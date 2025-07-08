@@ -1,7 +1,7 @@
 {% extends "parent.html" %}
 
 {% block content1 %}
-<h1>Creando Estudio Completado</h1>
+<h1>Creando Conocimiento</h1>
 {% endblock %}
 
 {% block content2 %}
@@ -12,5 +12,7 @@
     {{ form.as_p }}     {% comment "" %} esto renderiza el formulario de manera automática  {% endcomment %} 
 
     <button type = "submit">GUARDAR</button>
+
+<a href="{% url 'buscar-conocimiento' %}">Buscar conocimiento</a>
 
 {% endblock %}

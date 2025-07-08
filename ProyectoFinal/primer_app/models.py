@@ -22,7 +22,7 @@ class Estudio(models.Model):
     def __str__(self):
         return f"{self.nombre} en {self.institucion} ({self.fecha_inicio} - {self.fecha_final if self.fecha_final else 'Actualidad'})"
     
-class Conocimientos(models.Model):
+class Conocimiento(models.Model):
     nombre = models.CharField(max_length=100)
     nivel = models.CharField(max_length=50,choices=[
         ('Básico', 'Básico'),
