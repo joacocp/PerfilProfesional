@@ -1,12 +1,10 @@
 {% extends "parent.html" %}
 
-{% block content1 %}
+{% block content %}
 <h1>Buscar Conocimientos - Dejar vacio para ver todo</h1>
-{% endblock %}
 
-{% block content2 %}
 
-<form method = "GET" action="{% url 'buscar-conocimientos' %}">
+<form method = "GET" action="{% url 'buscar-conocimiento' %}">
     <input type="text" name="nombre" placeholder="Buscar conocimiento..." value = "{{ nombre }}">
     
     <button type="submit">Refrescar</button>

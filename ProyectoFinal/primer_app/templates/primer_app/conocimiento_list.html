@@ -1,0 +1,20 @@
+{%extends "parent.html" %}
+
+{% block content %}
+
+<h2 style="color: #2c3e50;">Lista de Conocimientos</h2>
+<ul>
+    {% for conocimiento in conocimientos %}
+        <li>
+            <strong>{{ conocimiento.nombre }}</strong> - {{ conocimiento.nivel }}
+            --||--
+            <a href="{% url 'conocimiento_update' conocimiento.pk %}">Editar</a>
+            <a href="{% url 'conocimiento_delete' conocimiento.pk %}">Eliminar</a>
+        </li>
+    {% empty %}
+        <li>No hay conocimientos registrados.</li>
+    {% endfor %}
+
+<a href="{% url 'conocimiento_create'%}">Agregar Nuevo</a>
+{%endblock %}
+    

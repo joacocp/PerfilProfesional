@@ -36,3 +36,14 @@ class Conocimiento(models.Model):
         return f"{self.nombre} ({self.nivel})"
     
 
+class idioma(models.Model):
+    nombre = models.CharField(max_length=100)
+    nivel = models.CharField(max_length=50,choices=[
+        ('Básico', 'Básico'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+        ('Experto', 'Experto')
+    ])
+    
+    def __str__(self):
+        return f"{self.nombre} ({self.nivel})"

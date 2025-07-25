@@ -1,10 +1,7 @@
 {% extends "parent.html" %}
 
-{% block content1 %}
-<h1>Creando nueva experiencia Laboral</h1>
-{% endblock %}
-
-{% block content2 %}
+{% block content %}
+<h1>Login</h1>
 
 <form method = "POST">
     
@@ -12,5 +9,5 @@
     {{ form.as_p }}     {% comment "" %} esto renderiza el formulario de manera automática  {% endcomment %} 
 
     <button type = "submit">GUARDAR</button>
-
+<a href="{% url 'inicio'%}">Volver</a>
 {% endblock %}

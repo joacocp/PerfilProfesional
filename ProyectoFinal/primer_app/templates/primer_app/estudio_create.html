@@ -1,0 +1,13 @@
+{% extends "parent.html" %}
+
+{% block content %}
+<h1>Creando Estudio Completado</h1>
+
+<form method = "POST">
+    
+    {% csrf_token %}
+    {{ form.as_p }}     {% comment "" %} esto renderiza el formulario de manera automática  {% endcomment %} 
+
+    <button type = "submit">GUARDAR</button>
+<a href="{% url 'estudio_list'%}">Volver</a>
+{% endblock %}
