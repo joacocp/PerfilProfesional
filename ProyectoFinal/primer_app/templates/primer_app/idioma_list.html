@@ -1,0 +1,19 @@
+{%extends "parent.html" %}
+
+{% block content %}
+
+<h2 style="color: #2c3e50;">Lista de Idiomas</h2>
+<ul>
+    {% for idioma in idiomas %}
+        <li>
+            <strong>{{ idioma.nombre }}</strong>
+            <a href="{% url 'idioma_update' idioma.pk %}">Editar</a>
+            <a href="{% url 'idioma_delete' idioma.pk %}">Eliminar</a>
+        </li>
+    {% empty %}
+        <li>No hay idiomas registrados.</li>
+    {% endfor %}
+
+<a href="{% url 'idioma_create'%}">Agregar Nuevo</a>
+{%endblock %}
+    
