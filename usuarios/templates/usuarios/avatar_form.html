@@ -1,0 +1,15 @@
+{% extends "parent.html" %}
+
+{% block content %}
+
+<h1>Avatar</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}  {# Renderiza el formulario de manera automática #}
+
+    <button type="submit">Enviar</button>
+</form>
+
+
+{% endblock %}

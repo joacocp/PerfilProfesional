@@ -94,9 +94,12 @@ class InicioView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['empleos'] = Empleo.objects.all()
         context['estudios'] = Estudio.objects.all()
+        context['conocimientos'] = Conocimiento.objects.all()
+        context['idiomas'] = idioma.objects.all()
         return context
 
 ##conocimiento
+
 class conocimiento_delete(DeleteView):
     model = Conocimiento
     template_name = 'primer_app/conocimiento_delete.html'

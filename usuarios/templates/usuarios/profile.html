@@ -4,12 +4,18 @@
 <h1>Personal</h1>
 
 <form method = "POST">
-    
+
+{% if user.avatar %}
+<img src="{{ user.avatar.imagen.url }}" alt=" Imagen de Avatar" style="width: 150px; height: 150px;">
+{% endif %}
+
 <p> Nombre de Usuario: {{ user.username }}</p>
 
-<p> Primer Nombre: {{}}</p>
+<p> Nombre: {{ user.first_name }}</p>
+<p> Apellido: {{ user.last_name }}</p>
+<p> Email: {{ user.email }}</p>
 
-<p> Avatar: {{}}</p>
-
-
+<a href="{% url 'profile_edit' %}">Editar Perfil</a>
+<br>
+<a href="{% url 'avatar_update' %}">Editar Avatar</a>
 {% endblock %}

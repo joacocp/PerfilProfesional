@@ -22,7 +22,7 @@
 </section>
 {% endblock %} {% endcomment %}
 
-{%block content %}
+{% block content %}
 
 <h1>📌 Experiencia laboral</h1>
 <ul>
@@ -45,6 +45,27 @@
     </li>
   {% endfor %}
 </ul>
+
+<h2>🧠 Conocimientos</h2>
+<ul>
+  {% for conocimiento in conocimientos %}
+    <li>{{ conocimiento.nombre }}</li>
+  {% empty %}
+    <li>No se registraron conocimientos aún.</li>
+  {% endfor %}
+</ul>
+
+<h2>🌐 Idiomas</h2>
+<ul>
+  {% for idioma in idiomas %}
+    <li>{{ idioma.nombre }} — Nivel: {{ idioma.nivel }}</li>
+  {% empty %}
+    <li>No se registraron idiomas aún.</li>
+  {% endfor %}
+</ul>
+
+
+
 
 <section id="experiencia" style="margin-bottom: 40px;">
   <h2 style="color: #2c3e50;">Información Básica</h2>

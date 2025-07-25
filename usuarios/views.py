@@ -1,11 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from .forms import RegisterForm
+from .models import Avatar
+from .forms import RegisterForm, AvatarForm, ProfileUpdateForm
 from django.views.generic import CreateView, UpdateView,DetailView
 from django.urls import reverse_lazy
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.views import View
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -28,17 +31,74 @@ class UserRegisterView(CreateView):
 class UserLoginView(LoginView):
     template_name = 'usuarios/login.html'
     def get_success_url(self):
-        # Redirige al usuario a la página de inicio después de iniciar sesión
+        # Redirige al usuario a la página de inicio después de iniciar sesión si todo sale bien
         return reverse_lazy('inicio')
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('inicio')
 
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'usuarios/profile.html'
     context_object_name = 'user'
     
     def get_object(self):
         return self.request.user
+
+class AvatarUpdateView(LoginRequiredMixin, UpdateView):
+    model = Avatar
+    form_class = AvatarForm
+    template_name = 'usuarios/avatar_form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        # Obtiene el avatar del usuario actual
+        avatar, created = Avatar.objects.get_or_create(nombre=self.request.user)
+        return avatar
     
+class ProfileUpdateView(LoginRequiredMixin,View):
+    template_name = 'usuarios/profile_edit.html'
+    success_url = reverse_lazy('profile')
+
+    def get(self, request, *args, **kwargs):
+        user_form = ProfileUpdateForm(instance=request.user)
+        # Obtenemos o creamos el avatar del usuario
+        avatar, _ = Avatar.objects.get_or_create(nombre=request.user)
+        avatar_form = AvatarForm(instance=avatar)
+        password_form = PasswordChangeForm(user=request.user)
+        context = {
+            'user_form': user_form,
+            'avatar_form': avatar_form,
+            'password_form': password_form
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        #Inicializamos los formularios con la data enviada
+        user_form = ProfileUpdateForm(request.POST, instance=request.user)
+        avatar, _ = Avatar.objects.get_or_create(nombre=request.user)
+        avatar_form = AvatarForm(request.POST, request.FILES, instance=avatar)
+        password_form = PasswordChangeForm(request.user, request.POST)
+
+        if "update_profile" in request.POST:
+            # Se envio el formulario de actualización de datos y avatar
+            if user_form.is_valid() and avatar_form.is_valid():
+                user_form.save()
+                avatar_form.save()
+                return redirect(self.success_url)
+        elif "change_password" in request.POST:
+            # Se envio el formulario de cambio de contraseña
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                return redirect(self.success_url)
+            else:
+                print(password_form.errors) # Aca puedes ver los errores de validación
+        
+        context = {
+            'user_form': user_form,
+            'avatar_form': avatar_form,
+            'password_form': password_form
+        }
+        return render(request, self.template_name, context)
+
