@@ -1,0 +1,13 @@
+{% extends "parent.html" %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method = "POST">
+    
+    {% csrf_token %}
+    {{ form.as_p }}     {% comment "" %} esto renderiza el formulario de manera automática  {% endcomment %} 
+
+    <button type = "submit">GUARDAR</button> {% comment "" %}esto es un boton de guardar {% endcomment %} 
+<a href="{% url 'inicio'%}">Volver</a>
+{% endblock %}

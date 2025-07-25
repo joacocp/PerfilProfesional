@@ -1,0 +1,14 @@
+{%extends "parent.html" %}
+
+{% block content %}
+
+<h2 style="color: #2c3e50;">Detalle del puesto</h2>
+<p><strong>Puesto:</strong> {{ empleo.nombre }}</p>
+<p><strong>Empresa:</strong> {{ empleo.empresa }}</p>
+<p><strong>Fecha de Inicio:</strong> {{ empleo.fecha_inicio|date:"F Y" }}</p>
+<p><strong>Fecha de Fin:</strong> {{ empleo.fecha_final|date:"F Y" }}</p>
+<p><strong>Descripción:</strong> {{ empleo.descripcion }}</p>
+<p><strong>Tecnologías Utilizadas:</strong> {{ empleo.tecnologias_utilizadas }}</p>
+
+<a href="{% url 'empleo_list'%}">Volver</a>
+{%endblock %}
