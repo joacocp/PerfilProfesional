@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<h2 style="color: #2c3e50;">Lista de Estudios</h2>
+<h2 style="color: #2c3e50;">Lista de Estudios Realizados</h2>
 <ul>
     {% for estudio in estudios %}
         <li>
-            <strong>{{ estudio.nombre }}</strong>
+            <strong>{{ estudio.nombre }}</strong>- {{ estudio.institucion }} |||
             <a href="{% url 'estudio_update' estudio.pk %}">Editar</a>
             <a href="{% url 'estudio_delete' estudio.pk %}">Eliminar</a>
         </li>

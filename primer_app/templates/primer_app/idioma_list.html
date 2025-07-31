@@ -6,7 +6,7 @@
 <ul>
     {% for idioma in idiomas %}
         <li>
-            <strong>{{ idioma.nombre }}</strong>
+            <strong>{{ idioma.nombre }}</strong> - {{ idioma.nivel }} |||   
             <a href="{% url 'idioma_update' idioma.pk %}">Editar</a>
             <a href="{% url 'idioma_delete' idioma.pk %}">Eliminar</a>
         </li>

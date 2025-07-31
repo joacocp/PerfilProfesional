@@ -195,7 +195,7 @@ class idioma_create(CreateView):
 class idioma_update(UpdateView):
     model = idioma
     form_class = IdiomaForm
-    template_name = 'primer_app/crear_idioma.html'
+    template_name = 'primer_app/idioma_create.html'
     success_url = reverse_lazy('idioma_list')
 
 class idioma_delete(LoginRequiredMixin,DeleteView):

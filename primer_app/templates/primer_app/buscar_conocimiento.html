@@ -1,8 +1,7 @@
 {% extends "parent.html" %}
 
 {% block content %}
-<h1>Buscar Conocimientos - Dejar vacio para ver todo</h1>
-
+<h2 style="color: #2c3e50;">Lista de Conocimientos</h2>
 
 <form method = "GET" action="{% url 'buscar-conocimiento' %}">
     <input type="text" name="nombre" placeholder="Buscar conocimiento..." value = "{{ nombre }}">
@@ -11,17 +10,21 @@
 
 </form>
 
-<h2>Lista de Conocimientos</h2>
 <ul>
 
     {% for conocimiento in conocimientos %}
-        <li> {{ conocimiento.nombre }} - {{ conocimiento.nivel }}</li>
+        <li>
+            <strong>{{ conocimiento.nombre }}</strong> - {{ conocimiento.nivel }}
+            |||
+            <a href="{% url 'conocimiento_update' conocimiento.pk %}">Editar</a>
+            <a href="{% url 'conocimiento_delete' conocimiento.pk %}">Eliminar</a>
+        </li>
     {% empty %}
         <li>No hay conocimientos disponibles.</li>
     {% endfor %}
 </ul>
 
-<a href="{% url 'crear-conocimiento' %}">Agregar conocimiento</a>
+<a href="{% url 'conocimiento_create' %}">Agregar conocimiento</a>
 
 {% endblock %}
 

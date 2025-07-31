@@ -8,6 +8,8 @@
     {% csrf_token %}
     {{ form.as_p }}     {% comment "" %} esto renderiza el formulario de manera automática  {% endcomment %} 
 
+    <input type="hidden" name="next" value="{{ next }}">
+
     <button type = "submit">Enviar</button>
 <a href="{% url 'inicio'%}">Volver</a>
 {% endblock %}

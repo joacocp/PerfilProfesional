@@ -1,32 +1,19 @@
 {% extends "parent.html" %}
 
-
-{% comment %} 
-{%block content %}
+{% block content %}
 
 <section id="experiencia" style="margin-bottom: 40px;">
-      <h2 style="color: #2c3e50;">Informacion Basica</h2>
-      <p>Email: {{ email }}</p>
-      LinkedIn:  </p>
+  <h1 style="color: #2c3e50;">👨 Información Básica</h1>
+  <p>🧑‍💼 Nombre: Joaquín Canedo Pero</p>
+  <p>🌎 Nacionalidad: Argentina</p>
+  <p>📍 Actualmente en: Buenos Aires</p>
+  <p>📧 Email: <a href="mailto:joacocp@gmail.com">joacocp@gmail.com</a></p>
+  <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/joaquin-canedo-pero-68b308146/" target="_blank">joaquin-canedo-pero-68b308146/</a></p>
 </section>
-
-<section id="datos" style="margin-bottom: 40px;">
-      <h2 style="color: #2c3e50;">Experiencia Laboral</h2>
-
-</section>
-
-
-<section id="estudios" style="margin-bottom: 40px;">
-      <h2 style="color: #2c3e50;">Estudios</h2>
-      <p>Incluye tu formación académica.</p>
-</section>
-{% endblock %} {% endcomment %}
-
-{% block content %}
 
 <h1>📌 Experiencia laboral</h1>
 <ul>
-  {% for empleo in empleos %}
+  {% for empleo in empleos|dictsortreversed:"fecha_inicio" %}
     <li><strong>{{ empleo.nombre }}</strong> en {{ empleo.empresa }} 
     <small>📅 ({{ empleo.fecha_inicio|date:"F Y" }} - 
       {% if empleo.fecha_final %}{{ empleo.fecha_final|date:"F Y" }}{% else %}Actualidad{% endif %})
@@ -37,7 +24,7 @@
 
 <h2>🎓 Estudios</h2>
 <ul>
-  {% for estudio in estudios %}
+  {% for estudio in estudios|dictsortreversed:"fecha_inicio" %}
     <li><strong>{{ estudio.nombre }}</strong> en {{ estudio.institucion }} 
     <small> ({{ estudio.fecha_inicio|date:"F Y" }} - 
       {% if estudio.fecha_final %}{{ estudio.fecha_final|date:"F Y" }}{% else %}Actualidad{% endif %})
@@ -46,10 +33,11 @@
   {% endfor %}
 </ul>
 
+
 <h2>🧠 Conocimientos</h2>
 <ul>
-  {% for conocimiento in conocimientos %}
-    <li>{{ conocimiento.nombre }}</li>
+  {% for conocimiento in conocimientos|dictsort:"nombre" %}
+    <li><strong>{{ conocimiento.nombre }}</strong> - {{conocimiento.nivel}}</li>
   {% empty %}
     <li>No se registraron conocimientos aún.</li>
   {% endfor %}
@@ -57,8 +45,8 @@
 
 <h2>🌐 Idiomas</h2>
 <ul>
-  {% for idioma in idiomas %}
-    <li>{{ idioma.nombre }} — Nivel: {{ idioma.nivel }}</li>
+  {% for idioma in idiomas|dictsort:"nombre" %}
+    <li><strong>{{ idioma.nombre }}</strong> - {{ idioma.nivel }}</li>
   {% empty %}
     <li>No se registraron idiomas aún.</li>
   {% endfor %}
@@ -66,14 +54,5 @@
 
 
 
-
-<section id="experiencia" style="margin-bottom: 40px;">
-  <h2 style="color: #2c3e50;">Información Básica</h2>
-  <p>Nombre: Joaquín Canedo Pero</p>
-  <p>Nacionalidad: Argentina</p>
-  <p>Ubicacion: Buenos Aires</p>
-  <p>Email: <a href="mailto:joacocp@gmail.com">joacocp@gmail.com</a></p>
-  <p>LinkedIn: <a href="https://www.linkedin.com/in/joaquin-canedo-pero-68b308146/" target="_blank">joaquin-canedo-pero-68b308146/</a></p>
-</section>
 
 {% endblock %}
