@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from .views import (inicio,buscar_conocimiento,
+from .views import (inicio,buscar_conocimiento,about,
                     # crear_estudio,crear_conocimiento,conocimiento,crear_empleo,
                     InicioView,
                     estudio_list,empleo_list,conocimiento_list,idioma_list,
@@ -13,6 +13,7 @@ from .views import (inicio,buscar_conocimiento,
 urlpatterns = [
     # path('', inicio, name='inicio'),
     path('conocimiento/buscar', buscar_conocimiento, name='buscar-conocimiento'),
+    path('about/', about, name='about'),
     # path('conocimiento/', conocimiento, name='conocimiento'),
     # # path('crear-conocimiento/', crear_conocimiento,name='crear-conocimiento'),
     # path('crear-estudio/',crear_estudio,name = 'crear-estudio'),

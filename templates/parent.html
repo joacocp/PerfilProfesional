@@ -39,15 +39,17 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'conocimiento_list' %}">Conocimientos</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'estudio_list' %}">Estudios</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'idioma_list' %}">Idiomas</a></li>
-                        <form action="{% url "logout" %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Logout</button>
                         {% else %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Login</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'register' %}">Registrarse</a></li>
                         {% endif %}
-                        </form>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'about' %}">About</a></li>
+                        {% if user.is_authenticated %}
+                        <form action="{% url "logout" %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                        </form>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

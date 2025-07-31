@@ -11,11 +11,9 @@
 
 <p> Nombre de Usuario: {{ user.username }}</p>
 
-<p> Nombre: {{ user.first_name }}</p>
-<p> Apellido: {{ user.last_name }}</p>
 <p> Email: {{ user.email }}</p>
 
-<a href="{% url 'profile_edit' %}">Editar Perfil</a>
+<a href="{% url 'profile_edit' %}">Cambiar Contraseña</a>
 <br>
 <a href="{% url 'avatar_update' %}">Editar Avatar</a>
 {% endblock %}

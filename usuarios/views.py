@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from .models import Avatar
+from django.utils.http import url_has_allowed_host_and_scheme
 from .forms import RegisterForm, AvatarForm, ProfileUpdateForm
 from django.views.generic import CreateView, UpdateView,DetailView
 from django.urls import reverse_lazy
@@ -28,11 +29,16 @@ class UserRegisterView(CreateView):
             login(self.request, user)
         return response
 
+
 class UserLoginView(LoginView):
     template_name = 'usuarios/login.html'
+
     def get_success_url(self):
-        # Redirige al usuario a la página de inicio después de iniciar sesión si todo sale bien
+        next_url = self.request.GET.get('next') or self.request.POST.get('next')
+        if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={self.request.get_host()}):
+            return next_url
         return reverse_lazy('inicio')
+
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('inicio')
@@ -57,7 +63,7 @@ class AvatarUpdateView(LoginRequiredMixin, UpdateView):
         return avatar
     
 class ProfileUpdateView(LoginRequiredMixin,View):
-    template_name = 'usuarios/profile_edit.html'
+    template_name = 'usuarios/pass_edit.html'
     success_url = reverse_lazy('profile')
 
     def get(self, request, *args, **kwargs):

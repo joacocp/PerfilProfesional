@@ -4,7 +4,8 @@ from django.http import HttpResponse
 from .forms import  ConocimientoForm, EstudioForm, EmpleoForm, IdiomaForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView,TemplateView
 from django.urls import reverse_lazy
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     return render(request,'primer_app/inicio.html')
@@ -78,7 +79,12 @@ def inicio(request):
 #     else:
 #         form = EmpleoForm()
 #         return render(request, 'primer_app/crear_empleo.html', {'form': form})
-    
+
+@login_required
+def about(request):
+    return render(request, 'primer_app/about.html')
+
+
 def buscar_conocimiento(request):
     if request.method == 'GET':
         nombre = request.GET.get('nombre','')
@@ -100,7 +106,7 @@ class InicioView(TemplateView):
 
 ##conocimiento
 
-class conocimiento_delete(DeleteView):
+class conocimiento_delete(LoginRequiredMixin, DeleteView):
     model = Conocimiento
     template_name = 'primer_app/conocimiento_delete.html'
     success_url = reverse_lazy('conocimiento_list')
@@ -124,7 +130,7 @@ class conocimiento_update(UpdateView):
 
 
 ##estudio
-class estudio_delete(DeleteView):
+class estudio_delete(LoginRequiredMixin,DeleteView):
     model = Estudio
     template_name = 'primer_app/estudio_delete.html'
     success_url = reverse_lazy('estudio_list')
@@ -164,7 +170,7 @@ class empleo_update(UpdateView):
     template_name = 'primer_app/empleo_create.html'
     success_url = reverse_lazy('empleo_list')
 
-class empleo_delete(DeleteView):
+class empleo_delete(LoginRequiredMixin, DeleteView):
     model = Empleo
     template_name = 'primer_app/empleo_delete.html'
     success_url = reverse_lazy('empleo_list')
@@ -192,7 +198,7 @@ class idioma_update(UpdateView):
     template_name = 'primer_app/crear_idioma.html'
     success_url = reverse_lazy('idioma_list')
 
-class idioma_delete(DeleteView):
+class idioma_delete(LoginRequiredMixin,DeleteView):
     model = idioma
     template_name = 'primer_app/idioma_delete.html'
     success_url = reverse_lazy('idioma_list')
